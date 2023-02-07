@@ -1,10 +1,10 @@
 import React from "react";
 import { Navbar } from "react-bootstrap";
 
-function Header() {
+function Header(props) {
   return (
     <Navbar bg="light" variant="light">
-      <Navbar.Brand href="/">Not My Order</Navbar.Brand>
+      <Navbar.Brand href="/"> { props.title }</Navbar.Brand>
     </Navbar>
   );
 }
