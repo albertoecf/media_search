@@ -2,11 +2,14 @@ import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "./components/Header";
 import Search from "./components/Search";
+import ImageCard from "./components/ImageCard";
 
 const UNPLASH_KEY = process.env.REACT_APP_UNPLASH_KEY;
 
 function App() {
   let [word, setWord] = useState("");
+  let [images, setImages] = useState([]);
+  console.log(images);
 
   function handleSearchSubmit(e) {
     e.preventDefault();
@@ -15,7 +18,7 @@ function App() {
     fetch(url_to_fetch)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        setImages([data, ...images]);
       })
       .catch((err) => {
         console.log(err);
@@ -32,6 +35,7 @@ function App() {
         handleSubmit={handleSearchSubmit}
       ></Search>
       <h1> Validate your order </h1>
+      <ImageCard></ImageCard>
     </div>
   );
 }
