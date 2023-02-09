@@ -6,6 +6,7 @@ import ImageCard from "./components/ImageCard";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Welcome from "./components/Welcome";
 
 const UNPLASH_KEY = process.env.REACT_APP_UNPLASH_KEY;
 
@@ -40,14 +41,18 @@ function App() {
         setWord={setWord}
         handleSubmit={handleSearchSubmit}
       ></Search>
-      <Container>
-        <Row xs={1} md={2} lg={3}>
-          {images.map((map_image, map_index) => (
-            <Col key={map_index} className="pb-3">
-              <ImageCard image={map_image} deleteImage={handleDeleteImage} />
-            </Col>
-          ))}
-        </Row>
+      <Container className="mt-4">
+        {images.length ? (
+          <Row xs={1} md={2} lg={3}>
+            {images.map((map_image, map_index) => (
+              <Col key={map_index} className="pb-3">
+                <ImageCard image={map_image} deleteImage={handleDeleteImage} />
+              </Col>
+            ))}
+          </Row>
+        ) : (
+          <Welcome />
+        )}
       </Container>
     </div>
   );

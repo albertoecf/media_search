@@ -7,11 +7,14 @@ const navbarStyle = {
   backgroundColor: "#eeeeee",
 };
 
-function Header(props) {
+function Header({ title }) {
   return (
     <Navbar style={navbarStyle} variant="light">
       <Container>
-        <Logo style={{ maxWidth: "100rem", maxHeight: "100" }}></Logo>
+        <Logo
+          alt={title}
+          style={{ maxWidth: "100rem", maxHeight: "100" }}
+        ></Logo>
       </Container>
     </Navbar>
   );
