@@ -18,7 +18,7 @@ function App() {
     fetch(url_to_fetch)
       .then((res) => res.json())
       .then((data) => {
-        setImages([data, ...images]);
+        setImages([{ ...data, title: word }, ...images]);
       })
       .catch((err) => {
         console.log(err);
@@ -35,7 +35,7 @@ function App() {
         handleSubmit={handleSearchSubmit}
       ></Search>
       <h1> Validate your order </h1>
-      <ImageCard></ImageCard>
+      {!!images.length && <ImageCard image={images[0]}></ImageCard>}
     </div>
   );
 }
