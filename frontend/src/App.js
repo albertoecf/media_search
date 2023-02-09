@@ -3,6 +3,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "./components/Header";
 import Search from "./components/Search";
 import ImageCard from "./components/ImageCard";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 const UNPLASH_KEY = process.env.REACT_APP_UNPLASH_KEY;
 
@@ -26,6 +29,10 @@ function App() {
     setWord("");
   }
 
+  function handleDeleteImage(input_id) {
+    setImages(images.filter((image) => image.id !== input_id));
+  }
+
   return (
     <div>
       <Header title="Not My order"></Header>
@@ -34,8 +41,15 @@ function App() {
         setWord={setWord}
         handleSubmit={handleSearchSubmit}
       ></Search>
-      <h1> Validate your order </h1>
-      {!!images.length && <ImageCard image={images[0]}></ImageCard>}
+      <Container>
+        <Row xs={1} md={2} lg={3}>
+          {images.map((map_image, map_index) => (
+            <Col key={map_index} className="pb-3">
+              <ImageCard image={map_image} deleteImage={handleDeleteImage} />
+            </Col>
+          ))}
+        </Row>
+      </Container>
     </div>
   );
 }
