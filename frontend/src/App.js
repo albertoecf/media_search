@@ -16,7 +16,6 @@ function App() {
 
   function handleSearchSubmit(e) {
     e.preventDefault();
-    console.log(word);
     let url_to_fetch = `https://api.unsplash.com/photos/random/?query=${word}&client_id=${UNPLASH_KEY}`;
     fetch(url_to_fetch)
       .then((res) => res.json())
