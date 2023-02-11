@@ -3,7 +3,7 @@ import Button from "react-bootstrap/Button";
 
 function Welcome() {
   return (
-    <div class="jumbotron">
+    <div className="jumbotron">
       <h1>Imagine, Search, Enjoy!</h1>
       <p>Look picture about anything!</p>
       <p>
