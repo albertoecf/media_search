@@ -1,0 +1,16 @@
+
+        New endpoint to our Flask application 
+Allows users to retrieve a random image from Unsplash based on a search query. 
+The endpoint makes a GET request to the Unsplash API with the query and the UNPLASH_KEY
+    as parameters and returns the "download" URL of the image in response. 
+To test the new functionality, the user must activate their Python environment and run the main.py file.
+
+Steps : 
+- Created a .env.local file to store the Unsplash API key securely.
+- Installed the Python library 'dotenv' using pip.
+- Imported the dotenv library in your main.py file and loaded the .env.local file using the 'load_dotenv()' function.
+- Used the 'os' library to access the API key stored in the .env.local file.
+- Created a Flask app with a route 'new-image' that retrieves a random image from the Unsplash API based on a search query 'word' passed as a parameter in the URL.
+- Used the 'requests' library to make a GET request to the Unsplash API and retrieve the data.
+- Returned the download URL of the image as the response to the route.
+
