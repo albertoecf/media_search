@@ -32,4 +32,8 @@ In our terminal -> root project directory
     15. docker-compose up
     16. docker-compose down -> stop all containers 
 "Detached" -> -d We can add -d to our commands i.e : docker-compose up -d
-    
+"volumes" -> share docs between local files and docker containers
+In our docker-compose.yml
+    17. services / frontend / volumes 
+How to automatically restart containers? 
+    18. In docker-compose.yml -> services/frontend/restart:always
