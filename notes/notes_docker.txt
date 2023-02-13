@@ -1,0 +1,39 @@
+In terminal : 
+    1. docker --version
+    2. docker run hello-world (hello world to check correct implementation) 
+    3. docker images (check local images)
+    4. docker container ps (-a) (list of available containers)
+Within the directory we want to dockerize 
+Create custom image for api directory
+1. Create Dockerfile
+    2. Chose base image (i.e : python) [docker pull python] (https://hub.docker.com/_/python)
+    Note: Each instruction in the Dockerfile during build process adds new layer to the resulting custom image
+    3. WORKDIR /app -> Select workdir
+    4. EXPOSE 5050 -> Expose working port (i.e : 5050)
+    4.1 COPY requirenments.txt ./ -> copies into docker image
+    5. RUN pip install requirenments.txt -> Install necessary packages 
+    6. COPY . ./ -> copies local file to docker image
+    7. CMD ["python", "main.py"] -> executes comands when run.
+In terminal where our docker file is (i.e: api folder)
+    8. "docker build . -t [image-name]" -> run command
+    Note : At this point we are abl e to create a new container based on that image
+    9. docker run -p 5050:5050 media-search-api -> -p [port_in_our_computer]:[docker_port] {app.run(host="0.0.0.0", port=5050)} | -p -> publish
+    10. we could run { docker run -p 5051:5050 media-search-api } and this will allow us to go to localhost:5051
+In other terminal 
+    11. docker exec -it [container-name] bash -> access the container with bash
+    12. ps -x -> what process are running within the container
+We're going to do the same for front end -> "dockerization of FE"
+Start multiple containers using one command -> docker-compose up
+    13. docker-compose up -> allow us to define and execute multiple containers
+In our root directory 
+    14. create a file "docker-compose.yml"
+        version / services / build / ports
+In our terminal -> root project directory
+    15. docker-compose up
+    16. docker-compose down -> stop all containers 
+"Detached" -> -d We can add -d to our commands i.e : docker-compose up -d
+"volumes" -> share docs between local files and docker containers
+In our docker-compose.yml
+    17. services / frontend / volumes 
+How to automatically restart containers? 
+    18. In docker-compose.yml -> services/frontend/restart:always
