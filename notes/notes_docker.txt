@@ -15,7 +15,11 @@ Create custom image for api directory
     6. COPY . ./ -> copies local file to docker image
     7. CMD ["python", "main.py"] -> executes comands when run.
 In terminal where our docker file is (i.e: api folder)
-    8. "docker build -t [image-name]" -> run command
+    8. "docker build . -t [image-name]" -> run command
     Note : At this point we are abl e to create a new container based on that image
-    9. docker run -p 5050:5050 media-search-api -> -p [port_in_our_computer]:[docker_port] {app.run(host="0.0.0.0", port=5050)}
-    
+    9. docker run -p 5050:5050 media-search-api -> -p [port_in_our_computer]:[docker_port] {app.run(host="0.0.0.0", port=5050)} | -p -> publish
+     10. we could run { docker run -p 5051:5050 media-search-api } and this will allow us to go to localhost:5051
+In other terminal 
+    11. docker exec -it [container-name] bash -> access the container with bash
+    12. ps -x -> what process are running within the container
+We're going to do the same for front end -> "dockerization of FE"
