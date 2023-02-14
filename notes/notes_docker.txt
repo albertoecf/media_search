@@ -37,3 +37,5 @@ In our docker-compose.yml
     17. services / frontend / volumes 
 How to automatically restart containers? 
     18. In docker-compose.yml -> services/frontend/restart:always
+We can store thing within docker "virtual machine" and outside the container 
+    19. In docker-compose.yml -> volumes: 
