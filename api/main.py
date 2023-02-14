@@ -3,10 +3,11 @@ from dotenv import load_dotenv
 import requests
 from flask import Flask, request
 from flask_cors import CORS
+from mongo_client import insert_test_document
 
 UNPLASH_URL = "https://api.unsplash.com/photos/random"
 
-load_dotenv(".env.local")
+load_dotenv(dotenv_path="./.env.local")
 UNPLASH_KEY = os.getenv("UNPLASH_KEY")
 DEBUG = bool(os.environ.get("DEBUG", True))
 
@@ -16,6 +17,8 @@ if not UNPLASH_KEY:
 app = Flask(__name__)
 CORS(app)
 app.config["DEBUG"] = DEBUG
+
+insert_test_document()
 
 
 @app.route("/new-image")
