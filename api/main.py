@@ -42,6 +42,16 @@ def new_image():
 
 @app.route("/images", methods=["GET", "POST"])
 def images():
+    """Endpoint for retrieving and saving images to the database.
+
+    HTTP Methods:
+    - GET: Retrieve all images from the database.
+    - POST: Save a new image to the database.
+
+    Returns:
+    - For GET requests, returns a JSON object containing a list of all images in the database.
+    - For POST requests, returns a JSON object containing the ID of the newly inserted image.
+    """
     if request.method == "GET":
         # Read images from the database
         images_in_db = images_collection.find({})
