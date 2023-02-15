@@ -39,3 +39,5 @@ How to automatically restart containers?
     18. In docker-compose.yml -> services/frontend/restart:always
 We can store thing within docker "virtual machine" and outside the container 
     19. In docker-compose.yml -> volumes: 
+How to check logs on containers? 
+    20. docker logs container-name

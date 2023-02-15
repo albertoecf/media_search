@@ -14,3 +14,6 @@ Steps :
 - Used the 'requests' library to make a GET request to the Unsplash API and retrieve the data.
 - Returned the download URL of the image as the response to the route.
 
+@app.route() is a decorator in Flask that binds a URL route to a view function. 
+When a user makes a request to a specific URL, 
+Flask will invoke the appropriate view function to handle that request
