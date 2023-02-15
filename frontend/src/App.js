@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import axios from "axios";
 import Header from "./components/Header";
 import Search from "./components/Search";
 import ImageCard from "./components/ImageCard";
@@ -13,19 +14,16 @@ const API_URL = process.env.REACT_APP_API_URL || "http://127.0.0.1:5050";
 function App() {
   let [word, setWord] = useState("");
   let [images, setImages] = useState([]);
-  console.log(images);
 
-  function handleSearchSubmit(e) {
+  async function handleSearchSubmit(e) {
     e.preventDefault();
     let url_to_fetch = `${API_URL}/new-image?query=${word}`;
-    fetch(url_to_fetch)
-      .then((res) => res.json())
-      .then((data) => {
-        setImages([{ ...data, title: word }, ...images]);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    try {
+      const res = await axios.get(url_to_fetch);
+      setImages([{ ...res.data, title: word }, ...images]);
+    } catch (error) {
+      console.log(error);
+    }
     setWord("");
   }
 
