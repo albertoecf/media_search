@@ -44,6 +44,16 @@ function App() {
     setImages(images.filter((image) => image.id !== input_id));
   }
 
+  async function handleSaveImage(id) {
+    const imageToBeSaved = images.find((image) => image.id === id);
+    try {
+      const res = await axios.post(`${API_URL}/images`, imageToBeSaved);
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <div>
       <Header title="Not My order"></Header>
@@ -57,7 +67,11 @@ function App() {
           <Row xs={1} md={2} lg={3}>
             {images.map((map_image, map_index) => (
               <Col key={map_index} className="pb-3">
-                <ImageCard image={map_image} deleteImage={handleDeleteImage} />
+                <ImageCard
+                  image={map_image}
+                  deleteImage={handleDeleteImage}
+                  saveImage={handleSaveImage}
+                />
               </Col>
             ))}
           </Row>
