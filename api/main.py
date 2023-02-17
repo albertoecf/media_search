@@ -54,9 +54,10 @@ def images():
     """
     if request.method == "GET":
         # Read images from the database
-        images_in_db = images_collection.find({})
-        images_in_db_list = [img for img in images_in_db]
-        return jsonify(images_in_db_list)
+        images_in_db = list(images_collection.find({}))
+        response = jsonify(images_in_db)
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response
     if request.method == "POST":
         # Save image to the db
         image_to_save = request.get_json()
