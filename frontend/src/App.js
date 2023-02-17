@@ -40,8 +40,16 @@ function App() {
     setWord("");
   }
 
-  function handleDeleteImage(input_id) {
-    setImages(images.filter((image) => image.id !== input_id));
+  async function handleDeleteImage(input_id) {
+    try {
+      const res = await axios.delete(`${API_URL}/images/${input_id}`);
+      if (res.data?.deleted_id) {
+        setImages(images.filter((image) => image.id !== input_id));
+      }
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   async function handleSaveImage(id) {
