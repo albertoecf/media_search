@@ -46,8 +46,16 @@ function App() {
 
   async function handleSaveImage(id) {
     const imageToBeSaved = images.find((image) => image.id === id);
+    imageToBeSaved.saved = true;
     try {
       const res = await axios.post(`${API_URL}/images`, imageToBeSaved);
+      if (res.data?.inserted_id) {
+        setImages(
+          images.map((image) =>
+            image.id === id ? { ...image, saved: true } : image
+          )
+        );
+      }
       console.log(res);
     } catch (error) {
       console.log(error);

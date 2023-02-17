@@ -12,9 +12,11 @@ function ImageCard({ image, deleteImage, saveImage }) {
         <Button variant="warning" onClick={() => deleteImage(image.id)}>
           Delete
         </Button>
-        <Button variant="primary" onClick={() => saveImage(image.id)}>
-          Save
-        </Button>
+        {!image.saved && (
+          <Button variant="primary" onClick={() => saveImage(image.id)}>
+            Save
+          </Button>
+        )}
       </Card.Body>
     </Card>
   );

@@ -4,6 +4,8 @@ import requests
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from mongo_client import mongo_client
+from pymongo.errors import PyMongoError
+
 
 gallery = mongo_client.gallery
 images_collection = gallery.images
@@ -54,9 +56,10 @@ def images():
     """
     if request.method == "GET":
         # Read images from the database
-        images_in_db = images_collection.find({})
-        images_in_db_list = [img for img in images_in_db]
-        return jsonify(images_in_db_list)
+        images_in_db = list(images_collection.find({}))
+        response = jsonify(images_in_db)
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response
     if request.method == "POST":
         # Save image to the db
         image_to_save = request.get_json()
@@ -65,6 +68,39 @@ def images():
         result = images_collection.insert_one(image_to_save)
         inserted_id = result.inserted_id
         return {"inserted_id": inserted_id}
+
+
+@app.route("/images/<image_id>", methods=["DELETE"])
+def delete_image(image_id):
+    """Delete a specific image from the database.
+    Args:
+        image_id (str): The ID of the image to delete.
+    Returns:
+        If the image is successfully deleted, returns a dictionary
+            with the ID of the deleted image and a status code 200.
+        If the image is not found, returns a dictionary with an
+            error message and a status code 404.
+        If there is an error while communicating with the database,
+            returns a dictionary with an error message and a status code 500.
+    Raises:
+        PyMongoError: An error occurred while communicating with the database.
+    """
+    if request.method == "DELETE":
+        try:
+            # Is the image in the db?
+            image_to_delete = images_collection.find_one({"_id": image_id})
+            if image_to_delete is None:
+                return {"error": "Image not found"}, 404
+            # Delete record from db
+            result = images_collection.delete_one({"_id": image_id})
+            if not result:
+                return {"error": "Image was not deleted, please try again"}, 500
+            if result.deleted_count == 1:
+                return {"deleted_id": image_id}
+            return {"deleted_id": None}
+        except PyMongoError as error:
+            print(f"An error occurred while deleting the image: {error}")
+            return {"error": "An error occurred while deleting the image."}
 
 
 if __name__ == "__main__":
