@@ -1,6 +1,11 @@
 import { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import axios from "axios";
+
 import Header from "./components/Header";
 import Search from "./components/Search";
 import ImageCard from "./components/ImageCard";
@@ -37,6 +42,7 @@ function App() {
     try {
       const res = await axios.get(url_to_fetch);
       setImages([{ ...res.data, title: word }, ...images]);
+      toast.info(`New image ${word} was found`);
     } catch (error) {
       console.log(error);
     }
@@ -66,6 +72,7 @@ function App() {
             image.id === id ? { ...image, saved: true } : image
           )
         );
+        toast.info(`Image ${imageToBeSaved.title} was saved`);
       }
       console.log(res);
     } catch (error) {
@@ -105,6 +112,7 @@ function App() {
           </Container>
         </>
       )}
+      <ToastContainer position="bottom-right"></ToastContainer>
     </div>
   );
 }
