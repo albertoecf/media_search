@@ -93,10 +93,11 @@ def delete_image(image_id):
                 return {"error": "Image not found"}, 404
             # Delete record from db
             result = images_collection.delete_one({"_id": image_id})
+            if not result:
+                return {"error": "Image was not deleted, please try again"}, 500
             if result.deleted_count == 1:
                 return {"deleted_id": image_id}
-            else:
-                return {"deleted_id": None}
+            return {"deleted_id": None}
         except PyMongoError as error:
             print(f"An error occurred while deleting the image: {error}")
             return {"error": "An error occurred while deleting the image."}
