@@ -7,6 +7,7 @@ import ImageCard from "./components/ImageCard";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Spinner from "./components/Spinner";
 import Welcome from "./components/Welcome";
 
 const API_URL = process.env.REACT_APP_API_URL || "http://127.0.0.1:5050";
@@ -14,11 +15,13 @@ const API_URL = process.env.REACT_APP_API_URL || "http://127.0.0.1:5050";
 function App() {
   let [word, setWord] = useState("");
   let [images, setImages] = useState([]);
+  let [loading, setLoading] = useState(true);
 
   async function getSavedImages() {
     try {
       const res = await axios.get(`${API_URL}/images`);
       setImages(res.data || []);
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -73,28 +76,35 @@ function App() {
   return (
     <div>
       <Header title="Not My order"></Header>
-      <Search
-        word={word}
-        setWord={setWord}
-        handleSubmit={handleSearchSubmit}
-      ></Search>
-      <Container className="mt-4">
-        {images.length ? (
-          <Row xs={1} md={2} lg={3}>
-            {images.map((map_image, map_index) => (
-              <Col key={map_index} className="pb-3">
-                <ImageCard
-                  image={map_image}
-                  deleteImage={handleDeleteImage}
-                  saveImage={handleSaveImage}
-                />
-              </Col>
-            ))}
-          </Row>
-        ) : (
-          <Welcome />
-        )}
-      </Container>
+      {loading ? (
+        <Spinner />
+      ) : (
+        <>
+          {" "}
+          <Search
+            word={word}
+            setWord={setWord}
+            handleSubmit={handleSearchSubmit}
+          ></Search>
+          <Container className="mt-4">
+            {images.length ? (
+              <Row xs={1} md={2} lg={3}>
+                {images.map((map_image, map_index) => (
+                  <Col key={map_index} className="pb-3">
+                    <ImageCard
+                      image={map_image}
+                      deleteImage={handleDeleteImage}
+                      saveImage={handleSaveImage}
+                    />
+                  </Col>
+                ))}
+              </Row>
+            ) : (
+              <Welcome />
+            )}
+          </Container>
+        </>
+      )}
     </div>
   );
 }
