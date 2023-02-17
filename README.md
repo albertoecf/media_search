@@ -1,6 +1,6 @@
 # Media Search
 
-Do you prefer watching? Take a look here [https://www.loom.com/share/7738b5b40e404e439ecf30c8f81bfb9e]
+Do you prefer watching? Take a look here [https://www.loom.com/share/cfbec8f8f9d04e899d7e3b9068d641e1]
 
 This project combines the power of Python and React to bring you a modern web application for searching and managing media content.
 
